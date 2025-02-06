@@ -1,6 +1,9 @@
 package org.example.probagrupoa.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Producto {
@@ -9,6 +12,7 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
     private String name;
 
     private String description;
@@ -17,18 +21,25 @@ public class Producto {
 
     //private Label etiqueta;
 
-    //private Categoria categoria;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "categoria")
+    private Categoria categoria;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     private String image;
 
+    @Min(0)
     private float price;
 
     // Te que ser un Double
     private String maps;
+
+    public Producto() {}
 
     public Integer getId() {
         return id;
@@ -86,8 +97,6 @@ public class Producto {
         this.maps = maps;
     }
 
-    public Producto() {}
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -96,12 +105,20 @@ public class Producto {
         this.usuario = usuario;
     }
 
-    public Producto(Integer id, String name, String description, String antiquity,
-                    Usuario usuario, String image, float price, String maps) {
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Producto(Integer id, String name, String description, String antiquity, Categoria categoria, Usuario usuario, String image, float price, String maps) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.antiquity = antiquity;
+        this.categoria = categoria;
         this.usuario = usuario;
         this.image = image;
         this.price = price;

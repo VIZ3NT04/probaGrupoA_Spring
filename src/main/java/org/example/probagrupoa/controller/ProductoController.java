@@ -1,5 +1,6 @@
 package org.example.probagrupoa.controller;
 
+import jakarta.validation.Valid;
 import org.example.probagrupoa.entity.Producto;
 import org.example.probagrupoa.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,13 @@ public class ProductoController {
 
     /*=== POST ===*/
     @PostMapping
-    public Producto registrar(@RequestBody Producto producto) {
+    public Producto registrar(@Valid @RequestBody Producto producto) {
         return service.registrar(producto);
     }
 
     /*=== PUT ===*/
     @PutMapping
-    public Producto modificar(@RequestBody Producto producto) {
+    public Producto modificar(@Valid @RequestBody Producto producto) {
         return service.modificar(producto);
     }
 
@@ -47,8 +48,4 @@ public class ProductoController {
     public void eliminar(@PathVariable("id") Integer id){
         service.detele(id);
     }
-
-
-
-
 }

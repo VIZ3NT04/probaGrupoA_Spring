@@ -1,5 +1,6 @@
 package org.example.probagrupoa.controller;
 
+import jakarta.validation.Valid;
 import org.example.probagrupoa.entity.Producto;
 import org.example.probagrupoa.entity.Usuario;
 import org.example.probagrupoa.service.IProductoService;
@@ -15,13 +16,13 @@ public class UsuarioController {
 
     /*=== POST ===*/
     @PostMapping
-    public Usuario registrar(@RequestBody Usuario usuario) {
+    public Usuario registrar(@Valid @RequestBody Usuario usuario) {
         return service.insertUser(usuario);
     }
 
     /*=== PUT ===*/
     @PutMapping
-    public Usuario modificar(@RequestBody Usuario usuario) {
+    public Usuario modificar(@Valid @RequestBody Usuario usuario) {
         return service.modificarUser(usuario);
     }
 

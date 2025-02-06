@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Usuario {
@@ -11,13 +15,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Email
     private String email;
 
+    @NotBlank
     private String name;
 
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$")
     private String password;
 
-    private boolean admin;
+    private boolean admin = false;
 
     public Usuario(Integer id, String email, String name, String password, boolean admin) {
         this.id = id;
@@ -67,6 +74,5 @@ public class Usuario {
         this.admin = admin;
     }
 
-    public Usuario() {
-    }
+    public Usuario() {}
 }
