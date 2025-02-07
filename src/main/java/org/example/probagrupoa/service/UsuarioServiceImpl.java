@@ -1,6 +1,7 @@
 package org.example.probagrupoa.service;
 
 import org.example.probagrupoa.entity.Usuario;
+import org.example.probagrupoa.entity.dto.RequestUserDto;
 import org.example.probagrupoa.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,19 @@ public class UsuarioServiceImpl implements IUsuarioService{
     public void deleteUser(Integer id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public Usuario loginUsuario(String email, String password) {
+
+            System.out.println("==================================================================");
+            Usuario user = repo.loginUsuario(email, password);
+            if (user != null) {
+                System.out.println("Usuario encontrado: " + user.getName());
+            } else {
+                System.out.println("Usuario no encontrado o credenciales incorrectas.");
+            }
+            return user;
+        }
+
+
 }
