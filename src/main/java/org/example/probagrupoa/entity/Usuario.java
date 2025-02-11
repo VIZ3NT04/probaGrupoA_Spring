@@ -26,12 +26,23 @@ public class Usuario {
 
     private boolean admin = false;
 
-    public Usuario(Integer id, String email, String name, String password, boolean admin) {
+    private String image;
+
+    public Usuario(Integer id, String email, String name, String password, boolean admin, String image) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.admin = admin;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Integer getId() {

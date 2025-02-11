@@ -14,6 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>probaGrupoA</name>
     <description>probaGrupoA</description>
+    <packaging>war</packaging>
     <url/>
     <licenses>
         <license/>
@@ -30,10 +31,10 @@
 
     <properties>
         <java.version>17</java.version>
-        <description>Proyecto Backend del curso</description>
-        <packaging>war</packaging>
+
 
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

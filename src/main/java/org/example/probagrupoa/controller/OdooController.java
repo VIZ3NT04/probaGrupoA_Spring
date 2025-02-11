@@ -12,7 +12,7 @@ import java.util.*;
 @RequestMapping("/odoo")
 public class OdooController {
 
-    private final String ODOO_URL = "http://192.168.8.214:8069/jsonrpc"; // URL de Odoo
+    private final String ODOO_URL = "http://192.168.8.214:8069/simarropopgrupoa/api";
 
     @PostMapping("/request")
     public ResponseEntity<String> sendRequestToOdoo() {
@@ -20,38 +20,20 @@ public class OdooController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Construcción del JSON-RPC internamente
-        Map<String, Object> jsonRpc = new HashMap<>();
-        jsonRpc.put("jsonrpc", "2.0");
-        jsonRpc.put("method", "call");
-        jsonRpc.put("id", 1);
+        // Si usas autenticación por sesión, obtienes la sesión aquí (opcional)
+        headers.set("Cookie", obtenerSesionOdoo());
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("service", "object");
-        params.put("method", "execute_kw");
-
-        List<Object> args = new ArrayList<>();
-        args.add("proyectoABP");  // Nombre de la base de datos
-        args.add(2);              // ID del usuario autenticado
-        args.add("1234");         // Contraseña
-        args.add("res.partner");  // Modelo de Odoo
-        args.add("search_read");  // Método
-        args.add(Collections.emptyList()); // Sin filtros
-
-        Map<String, Object> kwargs = new HashMap<>();
-        kwargs.put("fields", Arrays.asList("id", "name"));
-
-        args.add(kwargs);
-        params.put("args", args);
-
-        jsonRpc.put("params", params);
+        // JSON que se enviará a Odoo
+        Map<String, Object> data = new HashMap<>();
+        data.put("campo1", "teta1");
+        data.put("campo2", "valor2");
 
         try {
-            // Convertir el mapa a JSON
+            // Convertir a JSON
             ObjectMapper objectMapper = new ObjectMapper();
-            String requestJson = objectMapper.writeValueAsString(jsonRpc);
+            String requestJson = objectMapper.writeValueAsString(data);
 
-            // Enviar la petición a Odoo
+            // Enviar la petición
             HttpEntity<String> requestEntity = new HttpEntity<>(requestJson, headers);
             ResponseEntity<String> response = restTemplate.exchange(
                     ODOO_URL, HttpMethod.POST, requestEntity, String.class);
@@ -61,5 +43,23 @@ public class OdooController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error comunicando con Odoo: " + e.getMessage());
         }
+    }
+
+    // Metodo opcional para obtener sesión en Odoo
+    private String obtenerSesionOdoo() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("db", "simarropopdb");
+        params.put("login", "admin");
+        params.put("password", "admin");
+
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(params, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "http://192.168.8.214:8069/web/session/authenticate", request, String.class);
+
+        return response.getHeaders().getFirst(HttpHeaders.SET_COOKIE); // Devuelve la sesión
     }
 }
