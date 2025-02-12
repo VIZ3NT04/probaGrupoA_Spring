@@ -1,9 +1,6 @@
 package org.example.probagrupoa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,23 +23,16 @@ public class Usuario {
 
     private boolean admin = false;
 
-    private String image;
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Foto foto;
 
-    public Usuario(Integer id, String email, String name, String password, boolean admin, String image) {
+    public Usuario(Integer id, String email, String name, String password, boolean admin, Foto foto) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.admin = admin;
-        this.image = image;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+        this.foto = foto;
     }
 
     public Integer getId() {

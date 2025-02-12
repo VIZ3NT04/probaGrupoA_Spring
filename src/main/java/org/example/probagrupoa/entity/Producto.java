@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 public class Producto {
 
@@ -31,13 +33,15 @@ public class Producto {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    private String image;
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    private List<Foto> fotos;
 
     @Min(0)
     private float price;
 
     // Te que ser un Double
     private String maps;
+
 
     public Producto() {}
 
@@ -73,12 +77,12 @@ public class Producto {
         this.antiquity = antiquity;
     }
 
-    public String getImage() {
-        return image;
+    public List<Foto> getFotos() {
+        return fotos;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setFotos(List<Foto> fotos) {
+        this.fotos = fotos;
     }
 
     public float getPrice() {
@@ -113,14 +117,14 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public Producto(Integer id, String name, String description, String antiquity, Categoria categoria, Usuario usuario, String image, float price, String maps) {
+    public Producto(Integer id, String name, String description, String antiquity, Categoria categoria, Usuario usuario, List<Foto> fotos, float price, String maps) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.antiquity = antiquity;
         this.categoria = categoria;
         this.usuario = usuario;
-        this.image = image;
+        this.fotos = fotos;
         this.price = price;
         this.maps = maps;
     }

@@ -1,9 +1,6 @@
 package org.example.probagrupoa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -17,6 +14,9 @@ public class Categoria {
 
     @NotBlank
     private String description;
+
+    @OneToOne(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private Foto foto;
 
     public Integer getId() {
         return id;
@@ -42,10 +42,19 @@ public class Categoria {
         this.description = description;
     }
 
-    public Categoria(Integer id, String name, String description) {
+    public Categoria(Integer id, String name, String description, Foto foto) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.foto = foto;
+    }
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
     }
 
     public Categoria() {}

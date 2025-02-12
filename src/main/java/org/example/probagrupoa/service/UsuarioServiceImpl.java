@@ -1,19 +1,27 @@
 package org.example.probagrupoa.service;
 
 import org.example.probagrupoa.entity.Usuario;
-import org.example.probagrupoa.entity.dto.RequestUserDto;
 import org.example.probagrupoa.repository.IUsuarioRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService{
     @Autowired
     private IUsuarioRepository repo;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @Override
     public Usuario insertUser(Usuario usuario) {
-        return repo.save(usuario);
+        Usuario u = mapper.map(usuario, Usuario.class);
+        return repo.save(u);
     }
 
     @Override
@@ -38,6 +46,11 @@ public class UsuarioServiceImpl implements IUsuarioService{
             }
             return user;
         }
+
+    @Override
+    public List<Usuario> listaUsuarios() {
+        return repo.findAll();
+    }
 
 
 }

@@ -1,21 +1,25 @@
 package org.example.probagrupoa.controller;
 
 import jakarta.validation.Valid;
-import org.example.probagrupoa.entity.Producto;
 import org.example.probagrupoa.entity.Usuario;
-import org.example.probagrupoa.entity.dto.RequestUserDto;
-import org.example.probagrupoa.service.IProductoService;
 import org.example.probagrupoa.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
     @Autowired
     private IUsuarioService service;
+
+    @GetMapping
+    public ResponseEntity<List<Usuario>> findAll() {
+        return new ResponseEntity<>(service.listaUsuarios(), HttpStatus.OK);
+    }
 
     /*=== LOGIN ===*/
     @PostMapping("/login")
