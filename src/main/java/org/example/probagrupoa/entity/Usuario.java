@@ -23,16 +23,12 @@ public class Usuario {
 
     private boolean admin = false;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private Foto foto;
-
-    public Usuario(Integer id, String email, String name, String password, boolean admin, Foto foto) {
+    public Usuario(Integer id, String email, String name, String password, boolean admin) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.admin = admin;
-        this.foto = foto;
     }
 
     public Integer getId() {

@@ -36,6 +36,8 @@ public class UsuarioController {
 
 
     /*=== POST ===*/
+
+    // PORROOOOOOOOOOOOOOOOOOOOOOOOOOOOO
     @PostMapping
     public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
 

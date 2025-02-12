@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IProductoService {
     List<Producto> listar();
+    Producto buscarPorId(Integer id);
     List<Producto> filtrarPorName(String name);
     void detele(Integer id);
     List<Producto> filtrarPorPrice(Float price);

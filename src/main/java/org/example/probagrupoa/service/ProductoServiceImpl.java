@@ -19,6 +19,11 @@ public class ProductoServiceImpl implements IProductoService{
     }
 
     @Override
+    public Producto buscarPorId(Integer id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    @Override
     public List<Producto> filtrarPorName(String name) {
         List<Producto> productos = repo.filtrarPorName(name);
         return productos;

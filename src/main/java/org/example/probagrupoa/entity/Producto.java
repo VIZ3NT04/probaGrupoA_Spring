@@ -33,8 +33,8 @@ public class Producto {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
-    private List<Foto> fotos;
+    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL)
+    private Foto foto;
 
     @Min(0)
     private float price;
@@ -77,14 +77,6 @@ public class Producto {
         this.antiquity = antiquity;
     }
 
-    public List<Foto> getFotos() {
-        return fotos;
-    }
-
-    public void setFotos(List<Foto> fotos) {
-        this.fotos = fotos;
-    }
-
     public float getPrice() {
         return price;
     }
@@ -113,18 +105,26 @@ public class Producto {
         return categoria;
     }
 
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
+
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public Producto(Integer id, String name, String description, String antiquity, Categoria categoria, Usuario usuario, List<Foto> fotos, float price, String maps) {
+    public Producto(Integer id, String name, String description, String antiquity, Categoria categoria, Usuario usuario, Foto foto, float price, String maps) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.antiquity = antiquity;
         this.categoria = categoria;
         this.usuario = usuario;
-        this.fotos = fotos;
+        this.foto = foto;
         this.price = price;
         this.maps = maps;
     }
