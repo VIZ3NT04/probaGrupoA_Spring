@@ -1,9 +1,11 @@
 package org.example.probagrupoa.service;
 
+import jakarta.transaction.Transactional;
 import org.example.probagrupoa.entity.Usuario;
 import org.example.probagrupoa.repository.IUsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +19,19 @@ public class UsuarioServiceImpl implements IUsuarioService{
     private ModelMapper mapper;
 
     @Override
+    @Transactional
     public Usuario insertUser(Usuario usuario) {
-        Usuario u = mapper.map(usuario, Usuario.class);
-        return repo.save(u);
+        try {
+            System.out.println("CANCERRR ->>>>>>>>>>>>>>>>>><<"+usuario.getName());
+            return repo.save(usuario);
+        } catch (ObjectOptimisticLockingFailureException e) {
+            throw new RuntimeException("Error de concurrencia al insertar el usuario", e);
+        }
     }
 
     @Override
     public Usuario modificarUser(Usuario usuario) {
+        System.out.println("Usuario encontrado: " + usuario.getName() + " " + usuario.getEmail());
         return repo.save(usuario);
     }
 

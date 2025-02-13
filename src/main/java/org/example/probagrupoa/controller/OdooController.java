@@ -1,6 +1,7 @@
 package org.example.probagrupoa.controller;
 
 import org.springframework.http.*;
+import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

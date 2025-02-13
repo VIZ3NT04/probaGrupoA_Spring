@@ -22,7 +22,7 @@ public class UsuarioController {
     }
 
     /*=== LOGIN ===*/
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<Usuario> login(@Valid @RequestParam("email") String email, @Valid @RequestParam("password") String password) {
         System.out.println("Estan probant a loggearse");
         Usuario user = service.loginUsuario(email,password);
@@ -40,11 +40,13 @@ public class UsuarioController {
     // PORROOOOOOOOOOOOOOOOOOOOOOOOOOOOO
     @PostMapping
     public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
-
+        System.out.println("Estan intentant registrarse");
         Usuario user = service.insertUser(usuario);
         if (user == null) {
+            System.out.println("Estan intentant registrarse <<<FALLAT>>>");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            System.out.println("Estan intentant registrarse <<<CORRECTA>>>");
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         }
 

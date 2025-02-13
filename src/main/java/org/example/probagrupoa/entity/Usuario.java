@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 public class Usuario {
@@ -13,12 +14,14 @@ public class Usuario {
     private Integer id;
 
     @Email
+    @NotBlank(message = "El correo no puede estar vacío")
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank
     private String name;
 
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+    @Pattern(regexp = "^[A-Za-z\\d]{8,}$")
     private String password;
 
     private boolean admin = false;
