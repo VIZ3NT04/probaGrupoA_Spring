@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ICategoriaService {
     List<Categoria> listar();
+    Categoria insertar(Categoria categoria);
 }

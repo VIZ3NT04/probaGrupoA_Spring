@@ -10,4 +10,5 @@ public interface IUsuarioService {
     void deleteUser(Integer id);
     Usuario loginUsuario(String email,  String password);
     List<Usuario> listaUsuarios();
+    Usuario getUsuarioByEmail(String email);
 }

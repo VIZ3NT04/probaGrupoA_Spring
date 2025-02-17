@@ -41,13 +41,16 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
         System.out.println("Estan intentant registrarse");
-        Usuario user = service.insertUser(usuario);
-        if (user == null) {
+        Usuario u = service.getUsuarioByEmail(usuario.getEmail());
+
+        if (u == null) {
             System.out.println("Estan intentant registrarse <<<FALLAT>>>");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            Usuario user = service.insertUser(usuario);
+
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         } else {
             System.out.println("Estan intentant registrarse <<<CORRECTA>>>");
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
     }

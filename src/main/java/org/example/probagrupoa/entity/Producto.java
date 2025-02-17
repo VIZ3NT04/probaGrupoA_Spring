@@ -39,10 +39,6 @@ public class Producto {
     @Min(0)
     private float price;
 
-    // Te que ser un Double
-    private String maps;
-
-
     public Producto() {}
 
     public Integer getId() {
@@ -85,14 +81,6 @@ public class Producto {
         this.price = price;
     }
 
-    public String getMaps() {
-        return maps;
-    }
-
-    public void setMaps(String maps) {
-        this.maps = maps;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -117,7 +105,7 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public Producto(Integer id, String name, String description, String antiquity, Categoria categoria, Usuario usuario, Foto foto, float price, String maps) {
+    public Producto(Integer id, String name, String description, String antiquity, Categoria categoria, Usuario usuario, Foto foto, float price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -126,6 +114,5 @@ public class Producto {
         this.usuario = usuario;
         this.foto = foto;
         this.price = price;
-        this.maps = maps;
     }
 }

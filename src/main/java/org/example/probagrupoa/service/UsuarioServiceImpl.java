@@ -58,5 +58,11 @@ public class UsuarioServiceImpl implements IUsuarioService{
         return repo.findAll();
     }
 
+    @Override
+    public Usuario getUsuarioByEmail(String email) {
+        Usuario u = repo.filtarUsuariosByEmail(email);
+        return u;
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package org.example.probagrupoa.repository;
 
+import org.example.probagrupoa.entity.Categoria;
 import org.example.probagrupoa.entity.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,6 @@ public interface IProductoRepository extends JpaRepository<Producto,Integer> {
     @Query("FROM Producto p WHERE p.price <= :price")
     List<Producto> filtrarPorPrice(@Param("price") Float price);
 
-
+    @Query("FROM Producto p WHERE p.categoria.name = :nomCategoria")
+    List<Producto> filtrarPorCategoria(@Param("nomCategoria") String nomCategoria);
 }

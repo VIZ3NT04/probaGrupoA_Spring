@@ -19,4 +19,10 @@ public class CategoriaServiceImpl implements ICategoriaService{
     public List<Categoria> listar() {
             return repo.findAll();
     }
+
+    @Override
+    public Categoria insertar(Categoria categoria) {
+        return repo.save(categoria);
+    }
+
 }

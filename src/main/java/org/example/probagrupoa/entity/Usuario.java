@@ -26,12 +26,23 @@ public class Usuario {
 
     private boolean admin = false;
 
-    public Usuario(Integer id, String email, String name, String password, boolean admin) {
+    private String poblacion;
+
+    public String getPoblacion() {
+        return poblacion;
+    }
+
+    public void setPoblacion(String poblacion) {
+        this.poblacion = poblacion;
+    }
+
+    public Usuario(Integer id, String email, String name, String password, boolean admin, String poblacion) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.admin = admin;
+        this.poblacion = poblacion;
     }
 
     public Integer getId() {
