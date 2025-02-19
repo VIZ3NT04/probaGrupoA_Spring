@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -27,5 +28,21 @@ public class CategoriaController {
     @PostMapping
     public ResponseEntity<Categoria>insertar(@RequestBody Categoria categoria){
         return new ResponseEntity<>(service.insertar(categoria),HttpStatus.OK);
+    }
+
+    @GetMapping("/filtrarUnaCategoria/{name}")
+    public ResponseEntity<Categoria> listarUnaCategorias(@PathVariable("name") String name) {
+        System.out.println("Estic en el controller -> " + name);
+        Categoria categoria = service.seleccionarCategoria(name);
+        if (categoria == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(categoria, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Categoria>> obtenerCategoria(@PathVariable("id") Integer id){
+        Optional<Categoria> categoria = service.findById(id);
+        return new ResponseEntity<>(categoria, HttpStatus.OK);
     }
 }

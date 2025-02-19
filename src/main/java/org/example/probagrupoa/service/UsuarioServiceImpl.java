@@ -2,6 +2,7 @@ package org.example.probagrupoa.service;
 
 import jakarta.transaction.Transactional;
 import org.example.probagrupoa.entity.Usuario;
+import org.example.probagrupoa.entity.dto.UsuarioRequestDTO;
 import org.example.probagrupoa.repository.IUsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService{
@@ -20,10 +22,11 @@ public class UsuarioServiceImpl implements IUsuarioService{
 
     @Override
     @Transactional
-    public Usuario insertUser(Usuario usuario) {
+    public Usuario insertUser(UsuarioRequestDTO usuario) {
         try {
             System.out.println("CANCERRR ->>>>>>>>>>>>>>>>>><<"+usuario.getName());
-            return repo.save(usuario);
+            Usuario u = mapper.map(usuario, Usuario.class);
+            return repo.save(u);
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new RuntimeException("Error de concurrencia al insertar el usuario", e);
         }
@@ -62,6 +65,17 @@ public class UsuarioServiceImpl implements IUsuarioService{
     public Usuario getUsuarioByEmail(String email) {
         Usuario u = repo.filtarUsuariosByEmail(email);
         return u;
+    }
+
+    @Override
+    public Optional<Usuario> getUsuarioById(Integer id) {
+        return repo.findById(id);
+    }
+
+    @Override
+    public int getIdUsuarioByEmail(String email) {
+        Usuario u = repo.filtarUsuariosByEmail(email);
+        return u.getId();
     }
 
 

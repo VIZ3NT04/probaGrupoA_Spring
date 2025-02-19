@@ -3,6 +3,7 @@ package org.example.probagrupoa.controller;
 import jakarta.validation.Valid;
 import org.example.probagrupoa.entity.Categoria;
 import org.example.probagrupoa.entity.Producto;
+import org.example.probagrupoa.entity.dto.ProductoRequestDto;
 import org.example.probagrupoa.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,13 +36,13 @@ public class ProductoController {
     }
 
     @GetMapping("filtrarPorPrecio/{price}")
-    public ResponseEntity<List<Producto>> listarPorPrice(@PathVariable("price") float price){
+    public ResponseEntity<List<Producto>> listarPorPrice(@PathVariable("price") float price) {
         return new ResponseEntity<>(service.filtrarPorPrice(price), HttpStatus.OK);
     }
 
     /*=== POST ===*/
     @PostMapping
-    public ResponseEntity<Producto> registrar(@Valid @RequestBody Producto producto) {
+    public ResponseEntity<Producto> registrar(@Valid @RequestBody ProductoRequestDto producto) {
         Producto p = service.registrar(producto);
         if (p != null) {
             return new ResponseEntity<>(p, HttpStatus.CREATED);

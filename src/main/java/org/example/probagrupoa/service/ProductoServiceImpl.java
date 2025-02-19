@@ -2,7 +2,9 @@ package org.example.probagrupoa.service;
 
 import org.example.probagrupoa.entity.Categoria;
 import org.example.probagrupoa.entity.Producto;
+import org.example.probagrupoa.entity.dto.ProductoRequestDto;
 import org.example.probagrupoa.repository.IProductoRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class ProductoServiceImpl implements IProductoService{
     @Autowired
     private IProductoRepository repo;
 
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public List<Producto> listar() {
@@ -46,8 +50,9 @@ public class ProductoServiceImpl implements IProductoService{
     }
 
     @Override
-    public Producto registrar(Producto producto) {
-        return repo.save(producto);
+    public Producto registrar(ProductoRequestDto producto) {
+        Producto p = mapper.map(producto, Producto.class);
+        return repo.save(p);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.example.probagrupoa.controller;
 
 import jakarta.validation.Valid;
 import org.example.probagrupoa.entity.Usuario;
+import org.example.probagrupoa.entity.dto.UsuarioRequestDTO;
 import org.example.probagrupoa.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -19,6 +21,17 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll() {
         return new ResponseEntity<>(service.listaUsuarios(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Usuario>> findById(@PathVariable("id") Integer id) {
+        Optional<Usuario> u = service.getUsuarioById(id);
+        return new ResponseEntity<>(u, HttpStatus.OK);
+    }
+
+    @GetMapping("/getId/{email}")
+    public ResponseEntity<Integer> findByEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(service.getIdUsuarioByEmail(email), HttpStatus.OK);
     }
 
     /*=== LOGIN ===*/
@@ -39,7 +52,7 @@ public class UsuarioController {
 
     // PORROOOOOOOOOOOOOOOOOOOOOOOOOOOOO
     @PostMapping
-    public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> registrar(@Valid @RequestBody UsuarioRequestDTO usuario) {
         System.out.println("Estan intentant registrarse");
         Usuario u = service.getUsuarioByEmail(usuario.getEmail());
 

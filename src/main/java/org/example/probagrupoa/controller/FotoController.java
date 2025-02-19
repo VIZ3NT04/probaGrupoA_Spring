@@ -57,7 +57,7 @@ public class FotoController {
 
             // Guarda la URL en la base de datos
             Foto foto = new Foto();
-            String fileUrl = "http://localhost:8080/uploads/" + fileName;
+            String fileUrl = "http://api.grupoa.com:8080/MyApp/uploads/" + fileName;
             foto.setUrl(fileUrl);
             foto.setProducto(articulo);
             fotoRepository.save(foto);
@@ -104,5 +104,4 @@ public class FotoController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
-
 }
