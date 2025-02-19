@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("s/productos")
 public class ProductoController {
 
     @Autowired
@@ -25,19 +25,13 @@ public class ProductoController {
         return new ResponseEntity<>(service.listar(), HttpStatus.OK);
     }
 
-    @GetMapping("filtrarPorCategoria/{nomCategoria}")
-    public ResponseEntity<List<Producto>> listarPorCategoria(@PathVariable("nomCategoria") String nomCategoria){
-        return new ResponseEntity<>(service.filtrarPorCategoria(nomCategoria), HttpStatus.OK);
-    }
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<Producto>> filtrarProductos(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Float price,
+            @RequestParam(required = false) String nomCategoria) {
 
-    @GetMapping("filtrarPorNombre/{name}")
-    public ResponseEntity<List<Producto>> listarPorName(@PathVariable("name") String name){
-        return new ResponseEntity<>(service.filtrarPorName(name), HttpStatus.OK);
-    }
-
-    @GetMapping("filtrarPorPrecio/{price}")
-    public ResponseEntity<List<Producto>> listarPorPrice(@PathVariable("price") float price) {
-        return new ResponseEntity<>(service.filtrarPorPrice(price), HttpStatus.OK);
+        return new ResponseEntity<>(service.filtrarPorParametros(name, price, nomCategoria),HttpStatus.OK);
     }
 
     /*=== POST ===*/
