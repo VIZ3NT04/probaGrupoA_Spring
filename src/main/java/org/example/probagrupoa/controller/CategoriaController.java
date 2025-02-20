@@ -30,6 +30,12 @@ public class CategoriaController {
         return new ResponseEntity<>(service.insertar(categoria),HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id){
+        service.eliminar(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/filtrarUnaCategoria/{name}")
     public ResponseEntity<Categoria> listarUnaCategorias(@PathVariable("name") String name) {
         System.out.println("Estic en el controller -> " + name);

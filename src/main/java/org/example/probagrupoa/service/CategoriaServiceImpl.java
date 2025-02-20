@@ -36,4 +36,9 @@ public class CategoriaServiceImpl implements ICategoriaService{
         return categoria;
     }
 
+    @Override
+    public void eliminar(Integer id) {
+        repo.deleteById(id);
+    }
+
 }

@@ -10,4 +10,5 @@ public interface ICategoriaService {
     Categoria insertar(Categoria categoria);
     Categoria seleccionarCategoria(String name);
     Optional<Categoria> findById(Integer id);
+    void eliminar(Integer id);
 }
